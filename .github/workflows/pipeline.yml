@@ -34,7 +34,7 @@ jobs:
           retention-days: 30
       - name: Discord Webhook Error Notify
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: failure()
+        if: ${{ github.event_name == 'push' && failure()}}
         with:
           severity: error
           details: Build failed!
@@ -54,7 +54,7 @@ jobs:
           severity: info
           text: A new version of Pokedex deployed
           details: to https://full-stack-open-pokedex-divine-sea-2558.fly.dev/
-          
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}          
   tag_release:
     if: ${{ github.event_name == 'push' && !contains(join(fromJson(toJson(github.event.commits)).*.message, ' '), '#skip') }}
     needs: [simple_deployment_pipeline]
