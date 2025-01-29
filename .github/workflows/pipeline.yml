@@ -38,7 +38,7 @@ jobs:
         uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         if: ${{ github.event_name == 'push' && failure()}}
         with:
-          args: 'Build failed. Commit ${{ github.event.head_commit.id}} by ${{ github.event.head_commit.author}} broke the code'
+          args: 'Build failed. Commit ${{ github.event.head_commit.url}} by ${{ github.event.head_commit.committer.username}} broke the code'
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - if: ${{ github.event_name == 'push' && !contains(join(fromJson(toJson(github.event.commits)).*.message, ' '), '#skip') }}
         name: Deploy to Fly.io
