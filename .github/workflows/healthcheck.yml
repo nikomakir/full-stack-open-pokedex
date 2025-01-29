@@ -16,11 +16,15 @@ jobs:
           url: https://full-stack-open-pokedex-divine-sea-2658.fly.dev
           max-attempts: 3
       - name: Discord success notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         if: success()
         with:
           args: 'Healthcheck to https://full-stack-open-pokedex-divine-sea-2558.fly.dev passed'
       - name: Discord error notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         if: failure()
         with:
